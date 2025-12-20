@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c76l3uyq68bsm"]
+
+[ext_resource type="Texture2D" uid="uid://bfsurb0p50vba" path="res://editor/icon-plus.png" id="1_sufp5"]
+[ext_resource type="Script" uid="uid://dm083fmew11gi" path="res://editor/editor_letter.gd" id="2_60pu7"]
+
+[node name="EditorLetter" type="Sprite2D"]
+modulate = Color(0.94509804, 0.94509804, 0.94509804, 0.627451)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_sufp5")
+script = ExtResource("2_60pu7")

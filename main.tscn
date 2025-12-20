@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1qdsgjwbgaf0"]
+
+[ext_resource type="PackedScene" uid="uid://dujnautdls7wa" path="res://tendrilis.tscn" id="1_ig7tw"]
+
+[sub_resource type="Curve2D" id="Curve2D_ig7tw"]
+_data = {
+"points": PackedVector2Array(-287.38486, -172.25673, 287.38486, 172.25673, 3, 0, -161.82518, 1.5767698, 161.82518, -1.5767698, 557, 41, -179.46184, 77.770996, 179.46184, -77.770996, 1012, 45)
+}
+point_count = 3
+
+[node name="Main" type="Node2D"]
+
+[node name="Tendrilis" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(70, 59)
+curve = SubResource("Curve2D_ig7tw")
+text = "portez ce vieux whisky au juge blond qui fume"
+thickness = 3.0
+color = Color(0.5256453, 0.94489235, 0.7149741, 1)

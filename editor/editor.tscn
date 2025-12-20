@@ -1,0 +1,425 @@
+[gd_scene load_steps=31 format=3 uid="uid://blsy2nktfgpsw"]
+
+[ext_resource type="Script" uid="uid://dp1hn6ilb7b44" path="res://editor/editor.gd" id="1_vjobr"]
+[ext_resource type="PackedScene" uid="uid://c76l3uyq68bsm" path="res://editor/editor_letter.tscn" id="2_fjngd"]
+[ext_resource type="Texture2D" uid="uid://commiwprnmjdl" path="res://editor/tendrilis.png" id="2_wrb8p"]
+
+[sub_resource type="Curve2D" id="Curve2D_er7c6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 16, -16, -4.0345197, 3.404126, 4.0345197, -3.404126, 36, -22, 4.1605983, 7.0604095, -4.1605983, -7.0604095, 42, -36, 2.8367717, -9.682848, -2.8367717, 9.682848, 24, -26, 0, 0, 0, 0, 16, -16)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_j82do"]
+_data = {
+"points": PackedVector2Array(-15.637284, -0.561327, 15.637284, 0.561327, 0, 0, -0.3719045, -10.213568, 0.3719045, 10.213568, 34, 20, -5.68349, 6.914912, 5.68349, -6.914912, 54, 32, 4.0169435, -0.5212356, -4.0169435, 0.5212356, 44, 18, 0, 0, 0, 0, 34, 20)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_6j37k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 14, 0, -4.0345197, 3.404126, 4.0345197, -3.404126, 34, -6, 4.1605983, 7.0604095, -4.1605983, -7.0604095, 40, -20, 2.8367717, -9.682848, -2.8367717, 9.682848, 22, -10, 0, 0, 0, 0, 14, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_6hpnh"]
+_data = {
+"points": PackedVector2Array(-7.7502127, -0.60279435, 7.7502127, 0.60279435, 10, 0, -6.2862835, -6.6307373, 6.2862835, 6.6307373, 34, 16, 3.1861985, -4.7362413, -3.1861985, 4.7362413, 40, 32, 2.7556312, 2.6695178, -2.7556312, -2.6695178, 28, 32, -1.2917022, 3.1861985, 1.2917022, -3.1861985, 28, 22, 0, 0, 0, 0, 34, 16)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_swf4p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 16, 8, -4.0345197, -3.404126, 4.0345197, 3.404126, 36, 14, 4.1605983, -7.0604095, -4.1605983, 7.0604095, 42, 28, 2.8367717, 9.682848, -2.8367717, -9.682848, 24, 18, 0, 0, 0, 0, 16, 8)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_aws7q"]
+_data = {
+"points": PackedVector2Array(-8.846201, 0, 8.846201, 0, 0, 0, -9.942191, 0.39142483, 9.942191, -0.39142483, 16, 20, -0.2773732, 8.598569, 0.2773732, -8.598569, 30, 0, -2.3576722, 5.2700906, 2.3576722, -5.2700906, 36, -20, -4.576658, 0.1386866, 4.576658, -0.1386866, 46, -30, 0, -5.963524, 0, 5.963524, 54, -22, -4.854031, 0.1386866, 4.854031, -0.1386866, 44, -16, 2.2189856, 2.6350453, -2.2189856, -2.6350453, 36, -20)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_3meo8"]
+_data = {
+"points": PackedVector2Array(-8.846201, 0, 8.846201, 0, 0, 0, -9.942191, -0.39142483, 9.942191, 0.39142483, 16, -20, -0.2773732, -8.598569, 0.2773732, 8.598569, 30, 0, -2.3576722, -5.2700906, 2.3576722, 5.2700906, 36, 20, -4.576658, -0.1386866, 4.576658, 0.1386866, 46, 30, 0, 5.963524, 0, -5.963524, 54, 22, -4.854031, -0.1386866, 4.854031, 0.1386866, 44, 16, 2.2189856, -2.6350453, -2.2189856, 2.6350453, 36, 20)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_yyul4"]
+_data = {
+"points": PackedVector2Array(-15.074709, 0, 15.074709, 0, 10, 0, -0.19409497, -7.0521173, 0.19409497, 7.0521173, 34, 20, 7.505006, 0.19409497, -7.505006, -0.19409497, 24, 34, -0.06469846, 10.545827, 0.06469846, -10.545827, 10, 24, 0.088656366, -6.6900015, -0.088656366, 6.6900015, 24, 22)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_loxr8"]
+_data = {
+"points": PackedVector2Array(-3.2294993, -0.09054671, 3.2294993, 0.09054671, 17.99, -13, 0, 1.660023, 0, -1.660023, 20, -15, 1.8109342, 0, -1.8109342, 0, 18, -17, 0.030182237, 1.5392941, -0.030182237, -1.5392941, 16, -15, -1.9618454, 0.030182237, 1.9618454, -0.030182237, 18, -13)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_dblv8"]
+_data = {
+"points": PackedVector2Array(-9.077669, 0, 9.077669, 0, 6, 0, 0, 12.229638, 0, -12.229638, 32, -26)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wux1q"]
+_data = {
+"points": PackedVector2Array(-9.077669, 0, 9.077669, 0, 6, 0, 0, -12.229638, 0, 12.229638, 32, 26)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_anuej"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 14, 0, -4.0345197, -3.404126, 4.0345197, 3.404126, 34, 6, 4.1605983, -7.0604095, -4.1605983, 7.0604095, 40, 20, 2.8367717, 9.682848, -2.8367717, -9.682848, 22, 10, 0, 0, 0, 0, 14, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_wj0aq"]
+_data = {
+"points": PackedVector2Array(0, 7.2022166, 0, -7.2022166, 6, 0, -7.280502, 0, 7.280502, 0, 14, -20, 0, 0, 0, 0, 22, 0, -12.369024, 0, 12.369024, 0, 32, -34, 0, -15.578708, 0, 15.578708, 42, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_icflk"]
+_data = {
+"points": PackedVector2Array(0, -7.2022166, 0, 7.2022166, 6, 0, -7.280502, 0, 7.280502, 0, 14, 20, 0, 0, 0, 0, 22, 0, -12.369024, 0, 12.369024, 0, 32, 34, 0, 15.578708, 0, -15.578708, 42, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_t7axt"]
+_data = {
+"points": PackedVector2Array(0.09472483, -6.1571136, 0, 4, 40, -22, 4, 0, -4, 0, 32, -14, 0, 4, 0, -4, 24, -22, -4, 0, 4, 0, 32, -30, -0.09472483, -4.262617, 0.09472483, 4.262617, 40, -22)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_f85it"]
+_data = {
+"points": PackedVector2Array(-15.637284, 0.561327, 15.637284, -0.561327, 0, 0, -0.3719045, 10.213568, 0.3719045, -10.213568, 34, -20, -5.68349, -6.914912, 5.68349, 6.914912, 54, -32, 4.0169435, 0.5212356, -4.0169435, -0.5212356, 44, -18, 0, 0, 0, 0, 34, -20)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_mapyi"]
+_data = {
+"points": PackedVector2Array(-7.7502127, 0.60279435, 7.7502127, -0.60279435, 10, 0, -6.2862835, 6.6307373, 6.2862835, -6.6307373, 34, -16, 3.1861985, 4.7362413, -3.1861985, -4.7362413, 40, -32, 2.7556312, -2.6695178, -2.7556312, 2.6695178, 28, -32, -1.2917022, -3.1861985, 1.2917022, 3.1861985, 28, -22, 0, 0, 0, 0, 34, -16)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_1eglw"]
+_data = {
+"points": PackedVector2Array(-1.0086299, 4.917071, 1.0086299, -4.917071, 14, 0, -2.2694173, 4.1605983, 2.2694173, -4.1605983, 18, -10, -3.404126, 2.899811, 3.404126, -2.899811, 32, -32, -2.1433387, -3.2780473, 2.1433387, 3.2780473, 42, -34, 4.0345197, -4.412756, -4.0345197, 4.412756, 38, -22, 0, 0, 0, 0, 18, -10, 0.75647247, 7.186488, -0.75647247, -7.186488, 10, -26, -2.177121, 2.3464801, 2.177121, -2.3464801, 14, -36, -0.8928368, -4.3541975, 0.8928368, 4.3541975, 22, -32, 4.7362413, -8.146336, -4.7362413, 8.146336, 18, -10)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_rvwij"]
+_data = {
+"points": PackedVector2Array(0.09472483, 7.483261, -0.095, -9, 4, 0, -7, 0, 7, 0, 14, -16, 0, -8, 0, 8, 22, 0, -7, 0, 7, 0, 30, 18, 0, 9, 0.18944964, -8.809409, 40, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_j1vbl"]
+_data = {
+"points": PackedVector2Array(-15.074709, 0, 15.074709, 0, 10, 0, -0.19409497, 7.0521173, 0.19409497, -7.0521173, 34, -20, 7.505006, -0.19409497, -7.505006, 0.19409497, 24, -34, -0.06469846, -10.545827, 0.06469846, 10.545827, 10, -24, 0.088656366, 6.6900015, -0.088656366, -6.6900015, 24, -22)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_l1a3q"]
+_data = {
+"points": PackedVector2Array(0.09472483, 6.1571136, 0, -4, 40, 22, 4, 0, -4, 0, 32, 14, 0, -4, 0, 4, 24, 22, -4, 0, 4, 0, 32, 30, -0.09472483, 4.262617, 0.09472483, -4.262617, 40, 22)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_g3esq"]
+_data = {
+"points": PackedVector2Array(7.616447, 11.547516, -7.616447, -11.547516, 22, 18, 0, 0, 0, 0, 4, 0, -28.25456, -27.517487, 28.25456, 27.517487, 48, 24)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_j68xf"]
+_data = {
+"points": PackedVector2Array(7.616447, -11.547516, -7.616447, 11.547516, 22, -18, 0, 0, 0, 0, 4, 0, -28.25456, 27.517487, 28.25456, -27.517487, 48, -24)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_nbwom"]
+_data = {
+"points": PackedVector2Array(0.3444539, 8.783574, -0.3444539, -8.783574, 18, 0, -2.927858, 4.1334467, 2.927858, -4.1334467, 24, -20, 0, 0, 0, 0, 34, -30, 0.25834036, -8.266893, -0.25834036, 8.266893, 36, -18, 6.716851, 0, -6.716851, 0, 20, -6, -0.086113475, 7.233532, 0.086113475, -7.233532, 12, -22, -5.511263, -0.43056738, 5.511263, 0.43056738, 26, -36, -1.463929, -3.3584256, 1.463929, 3.3584256, 34, -30)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_f4kn2"]
+_data = {
+"points": PackedVector2Array(-3.3767505, -4.4434466, 3.3767505, 4.4434466, 14, 0, -2.2694173, -4.1605983, 2.2694173, 4.1605983, 20, 10, -3.404126, -2.899811, 3.404126, 2.899811, 30, 34, -2.1433387, 3.2780473, 2.1433387, -3.2780473, 42, 34, 4.0345197, 4.412756, -4.0345197, -4.412756, 38, 22, 0, 0, 0, 0, 18, 10, 0.75647247, -7.186488, -0.75647247, 7.186488, 10, 26, -2.177121, -2.3464801, 2.177121, 2.3464801, 14, 36, -0.8928368, 4.3541975, 0.8928368, -4.3541975, 22, 32, 4.7362413, 8.146336, -4.7362413, -8.146336, 18, 10)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_f77pu"]
+_data = {
+"points": PackedVector2Array(0.3444539, -8.783574, -0.3444539, 8.783574, 18, 0, -2.927858, -4.1334467, 2.927858, 4.1334467, 24, 20, 0, 0, 0, 0, 34, 30, 0.25834036, 8.266893, -0.25834036, -8.266893, 36, 18, 6.716851, 0, -6.716851, 0, 20, 6, -0.086113475, -7.233532, 0.086113475, 7.233532, 12, 22, -5.511263, 0.43056738, 5.511263, -0.43056738, 26, 36, -1.463929, 3.3584256, 1.463929, -3.3584256, 34, 30)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_ftkm7"]
+_data = {
+"points": PackedVector2Array(0, 0, -4.5, -14, 30, 22, 0, 0, 0, 0, 6, 0, -4.5, 14, 4.4593077, -13.67521, 30, -22)
+}
+point_count = 3
+
+[node name="Editor" type="Node2D"]
+script = ExtResource("1_vjobr")
+
+[node name="Tendrilis" type="Sprite2D" parent="."]
+position = Vector2(311, 192)
+texture = ExtResource("2_wrb8p")
+
+[node name="Letters" type="Node2D" parent="."]
+
+[node name="EditorLetterA" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(22, 22)
+letter = "a"
+size = 60.0
+subdivision = 25
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterA"]
+curve = SubResource("Curve2D_er7c6")
+
+[node name="EditorLetterB" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(98, 21)
+letter = "b"
+size = 70.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterB"]
+curve = SubResource("Curve2D_j82do")
+
+[node name="EditorLetterC" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(171, 22)
+letter = "c"
+size = 60.0
+subdivision = 25
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterC"]
+curve = SubResource("Curve2D_6j37k")
+
+[node name="EditorLetterD" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(247, 24)
+letter = "d"
+size = 70.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterD"]
+curve = SubResource("Curve2D_6hpnh")
+
+[node name="EditorLetterE" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(22, 81)
+letter = "e"
+size = 60.0
+subdivision = 25
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterE"]
+curve = SubResource("Curve2D_swf4p")
+
+[node name="EditorLetterF" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(96, 81)
+letter = "f"
+size = 70.0
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterF"]
+curve = SubResource("Curve2D_aws7q")
+
+[node name="EditorLetterG" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(171, 82)
+letter = "g"
+size = 70.0
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterG"]
+curve = SubResource("Curve2D_3meo8")
+
+[node name="EditorLetterH" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(248, 82)
+letter = "h"
+size = 60.0
+subdivision = 30
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterH"]
+curve = SubResource("Curve2D_yyul4")
+
+[node name="EditorLetterI" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(20, 137)
+letter = "i"
+size = 40.0
+subdivision = 25
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterI"]
+curve = SubResource("Curve2D_loxr8")
+
+[node name="EditorLetterJ" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(94, 137)
+letter = "j"
+size = 60.0
+subdivision = 10
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterJ"]
+curve = SubResource("Curve2D_dblv8")
+
+[node name="EditorLetterK" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(170, 137)
+letter = "k"
+size = 60.0
+subdivision = 10
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterK"]
+curve = SubResource("Curve2D_wux1q")
+
+[node name="EditorLetterL" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(245, 138)
+letter = "l"
+size = 60.0
+subdivision = 25
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterL"]
+curve = SubResource("Curve2D_anuej")
+
+[node name="EditorLetterM" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(22, 193)
+letter = "m"
+size = 60.0
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterM"]
+curve = SubResource("Curve2D_wj0aq")
+
+[node name="EditorLetterN" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(95, 193)
+letter = "n"
+size = 60.0
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterN"]
+curve = SubResource("Curve2D_icflk")
+
+[node name="EditorLetterO" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(169, 193)
+letter = "o"
+size = 60.0
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterO"]
+curve = SubResource("Curve2D_t7axt")
+
+[node name="EditorLetterP" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(243, 194)
+letter = "p"
+size = 70.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterP"]
+curve = SubResource("Curve2D_f85it")
+
+[node name="EditorLetterQ" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(21, 248)
+letter = "q"
+size = 60.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterQ"]
+curve = SubResource("Curve2D_mapyi")
+
+[node name="EditorLetterR" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(94, 249)
+letter = "r"
+size = 60.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterR"]
+curve = SubResource("Curve2D_1eglw")
+
+[node name="EditorLetterS" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(169, 250)
+letter = "s"
+size = 60.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterS"]
+curve = SubResource("Curve2D_rvwij")
+
+[node name="EditorLetterT" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(241, 249)
+letter = "t"
+size = 60.0
+subdivision = 30
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterT"]
+curve = SubResource("Curve2D_j1vbl")
+
+[node name="EditorLetterU" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(21, 306)
+letter = "u"
+size = 60.0
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterU"]
+curve = SubResource("Curve2D_l1a3q")
+
+[node name="EditorLetterV" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(97, 305)
+letter = "v"
+size = 60.0
+subdivision = 20
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterV"]
+curve = SubResource("Curve2D_g3esq")
+
+[node name="EditorLetterW" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(173, 306)
+letter = "w"
+size = 60.0
+subdivision = 20
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterW"]
+curve = SubResource("Curve2D_j68xf")
+
+[node name="EditorLetterX" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(246, 305)
+letter = "x"
+size = 60.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterX"]
+curve = SubResource("Curve2D_nbwom")
+
+[node name="EditorLetterY" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(20, 361)
+letter = "y"
+size = 60.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterY"]
+curve = SubResource("Curve2D_f4kn2")
+
+[node name="EditorLetterZ" parent="Letters" instance=ExtResource("2_fjngd")]
+position = Vector2(97, 361)
+letter = "z"
+size = 60.0
+subdivision = 40
+
+[node name="Path2D" type="Path2D" parent="Letters/EditorLetterZ"]
+curve = SubResource("Curve2D_f77pu")
+
+[node name="Specials" type="Node2D" parent="."]
+
+[node name="EditorLetterSpace" parent="Specials" instance=ExtResource("2_fjngd")]
+position = Vector2(15, 421)
+letter = " "
+size = 60.0
+
+[node name="Path2D" type="Path2D" parent="Specials/EditorLetterSpace"]
+curve = SubResource("Curve2D_ftkm7")
+
+[node name="Numerics" type="Node2D" parent="."]
+
+[node name="EditorLetter1" parent="Numerics" instance=ExtResource("2_fjngd")]
+position = Vector2(348, 65)
+letter = "1"
+size = 60.0
+
+[node name="Line2D" type="Line2D" parent="Numerics/EditorLetter1"]
+points = PackedVector2Array(20, 0, 36, -20, 41, -19, 46, -20, 48, -24, 48, -28, 44, -32, 38, -32, 34, -28, 34, -24, 36, -20)
+width = 1.0
