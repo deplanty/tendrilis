@@ -5,14 +5,16 @@
 [node name="TendrilisLetter" type="Node2D"]
 scale = Vector2(1.3333334, 1.3333334)
 script = ExtResource("1_0qvdt")
-letter = "a"
-show_translation = null
 
 [node name="Shapes" type="Node2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="Label" type="Label" parent="."]
-offset_right = 40.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
 offset_bottom = 23.0
-text = "a"
+grow_horizontal = 2

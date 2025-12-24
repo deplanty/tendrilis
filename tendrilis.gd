@@ -59,15 +59,8 @@ extends Path2D
 @onready var baseline: Line2D = %Baseline
 
 
-var characters_data: Dictionary
-
-
 func _ready() -> void:
 	curve.changed.connect(_on_curve_changed)
-	
-	var data = JSON.parse_string(FileAccess.get_file_as_string("res://letters/characters.json"))
-	for letter_data in data:
-		characters_data.set(letter_data["symbol"], letter_data)
 
 
 func _on_curve_changed() -> void:
@@ -100,7 +93,7 @@ func _draw_text() -> void:
 	for index in floor(text.length() * show_factor):
 		var letter = text[index].to_lower()
 		var tendri_letter: TendrilisLetter = load("res://letters/tendrilis-letter.tscn").instantiate()
-		tendri_letter.set_character_data(characters_data[letter])
+		tendri_letter.letter = letter
 		tendri_letter.fontsize = fontsize
 		tendri_letter.color = color
 		var transf = curve.sample_baked_with_rotation(curve.get_baked_length() * index / len(text))

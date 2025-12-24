@@ -4,7 +4,13 @@ extends Node2D
 
 
 ## The letter to display.
-@export var letter: String = ""
+@export var letter: String = "":
+	set(value):
+		letter = value
+		if not is_node_ready():
+			await ready
+		_draw_shapes()
+		$Label.text = letter
 
 ## The fontsize of the letter.
 @export_range(1, 100, 1, "or_greater", "suffix:pt") var fontsize: int = 32:
@@ -29,31 +35,26 @@ extends Node2D
 @onready var shapes_container: Node2D = %Shapes
 
 
-var letter_text: String:
-	get():
-		return {
-			" ": "space",
-			".": "dot",
-			",": "comma",
-			"+": "plus",
-			"-": "minus",
-		}.get(letter, letter)
-var _data: Dictionary
+var _data: TendrilisData.Character
 var _pt_to_px: float = 4.0 / 3
 
 #region Magics
 
 func _ready() -> void:
 	_draw_shapes()
-	$Label.text = letter
 
 #endregion
 #region Private methods
 
 func _draw_shapes() -> void:
-	var subdivision = _data["base_subdivision"]
+	if letter == "":
+		return
+
+	_data = TendrilisData.get_character(letter)
+
+	var subdivision = _data.base_subdivision
 	# Create all the lines of the letter
-	for shapes in _data["shapes"]:
+	for shapes in _data.shapes:
 		var curve = Curve2D.new()
 		for point in shapes:
 			curve.add_point(
@@ -66,6 +67,8 @@ func _draw_shapes() -> void:
 		line.width = 2
 		line.default_color = color
 		line.antialiased = true
+		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+		line.end_cap_mode = Line2D.LINE_CAP_ROUND
 		var curve_len = curve.get_baked_length()
 		for index in subdivision:
 			line.add_point(
@@ -82,35 +85,24 @@ func _draw_shapes() -> void:
 				curve.get_point_position(last)
 			)
 		shapes_container.add_child(line)
-
-	# FIXME: scale the node to match the font size. Not good (?) because the thickness is scaled too.
-	# Scale the letter to match the fontsize
-	var line_scale = (_pt_to_px * fontsize) / _data["base_size"]
-	scale.x = line_scale
-	scale.y = line_scale
+	_update_shapes()
 
 
+## Update the shapes of the character
 func _update_shapes() -> void:
 	if letter == "":
 		return
 
+	var line_scale = (_pt_to_px * fontsize) / _data.base_size
 	# Create all the lines of the letter
 	for line in shapes_container.get_children():
-		line.width = 2
 		line.default_color = color
-		line.antialiased = true
+		# FIXME: scale the node to match the font size. Not good (?) because the thickness is scaled too.
+		# Scale the letter to match the fontsize
+		line.scale.x = line_scale
+		line.scale.y = line_scale
 
-	# FIXME: scale the node to match the font size. Not good (?) because the thickness is scaled too.
-	# Scale the letter to match the fontsize
-	var line_scale = (_pt_to_px * fontsize) / _data["base_size"]
-	scale.x = line_scale
-	scale.y = line_scale
-
-#endregion
-#region Public mehods
-
-func set_character_data(data: Dictionary) -> void:
-	letter = data["symbol"]
-	_data = data
+	$Label.position.x = _data.base_size / 2
+	$Label.position.y = fontsize
 
 #endregion
