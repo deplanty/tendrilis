@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://blsy2nktfgpsw"]
+[gd_scene load_steps=33 format=3 uid="uid://blsy2nktfgpsw"]
 
 [ext_resource type="Script" uid="uid://dp1hn6ilb7b44" path="res://editor/editor.gd" id="1_vjobr"]
 [ext_resource type="PackedScene" uid="uid://c76l3uyq68bsm" path="res://editor/editor_letter.tscn" id="2_fjngd"]
@@ -132,15 +132,27 @@ point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_g3esq"]
 _data = {
-"points": PackedVector2Array(7.616447, 11.547516, -7.616447, -11.547516, 22, 18, 0, 0, 0, 0, 4, 0, -28.25456, -27.517487, 28.25456, 27.517487, 48, 24)
+"points": PackedVector2Array(-8.10783, -2.7026103, 8.10783, 2.7026103, 0, 0, -1.351305, -8.378092, 1.351305, 8.378092, 22, 22)
 }
-point_count = 3
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_cw3ab"]
+_data = {
+"points": PackedVector2Array(-16.756184, -0.810783, 16.756184, 0.810783, 0, 0, -7.2970476, -14.323833, 7.2970476, 14.323833, 48, 30)
+}
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_j68xf"]
 _data = {
-"points": PackedVector2Array(7.616447, -11.547516, -7.616447, 11.547516, 22, -18, 0, 0, 0, 0, 4, 0, -28.25456, 27.517487, 28.25456, -27.517487, 48, -24)
+"points": PackedVector2Array(-8.10783, 2.7026103, 8.10783, -2.7026103, 0, 0, -1.351305, 8.378092, 1.351305, -8.378092, 22, -22)
 }
-point_count = 3
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mq4v0"]
+_data = {
+"points": PackedVector2Array(-16.756184, 0.810783, 16.756184, -0.810783, 0, 0, -7.2970476, 14.323833, 7.2970476, -14.323833, 48, -30)
+}
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_nbwom"]
 _data = {
@@ -367,6 +379,9 @@ subdivision = 20
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterV"]
 curve = SubResource("Curve2D_g3esq")
 
+[node name="Path2D2" type="Path2D" parent="Letters/EditorLetterV"]
+curve = SubResource("Curve2D_cw3ab")
+
 [node name="EditorLetterW" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(173, 306)
 letter = "w"
@@ -375,6 +390,9 @@ subdivision = 20
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterW"]
 curve = SubResource("Curve2D_j68xf")
+
+[node name="Path2D2" type="Path2D" parent="Letters/EditorLetterW"]
+curve = SubResource("Curve2D_mq4v0")
 
 [node name="EditorLetterX" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(246, 305)
