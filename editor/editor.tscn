@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://blsy2nktfgpsw"]
+[gd_scene load_steps=34 format=3 uid="uid://blsy2nktfgpsw"]
 
 [ext_resource type="Script" uid="uid://dp1hn6ilb7b44" path="res://editor/editor.gd" id="1_vjobr"]
 [ext_resource type="PackedScene" uid="uid://c76l3uyq68bsm" path="res://editor/editor_letter.tscn" id="2_fjngd"]
@@ -174,9 +174,15 @@ point_count = 8
 
 [sub_resource type="Curve2D" id="Curve2D_ftkm7"]
 _data = {
-"points": PackedVector2Array(0, 0, -4.5, -14, 30, 22, 0, 0, 0, 0, 6, 0, -4.5, 14, 4.4593077, -13.67521, 30, -22)
+"points": PackedVector2Array(-8.043823, 0, 8, 0, 0, 0, -3, 8, 2.9124186, -8.043823, 22, -14)
 }
-point_count = 3
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4qqsw"]
+_data = {
+"points": PackedVector2Array(0, 0, 8, 0, 0, 0, -3, -8, 0, 0, 22, 14)
+}
+point_count = 2
 
 [node name="Editor" type="Node2D"]
 script = ExtResource("1_vjobr")
@@ -199,7 +205,7 @@ curve = SubResource("Curve2D_er7c6")
 [node name="EditorLetterB" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(98, 21)
 letter = "b"
-size = 70.0
+size = 60.0
 subdivision = 40
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterB"]
@@ -217,7 +223,7 @@ curve = SubResource("Curve2D_6j37k")
 [node name="EditorLetterD" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(247, 24)
 letter = "d"
-size = 70.0
+size = 60.0
 subdivision = 40
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterD"]
@@ -235,7 +241,7 @@ curve = SubResource("Curve2D_swf4p")
 [node name="EditorLetterF" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(96, 81)
 letter = "f"
-size = 70.0
+size = 60.0
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterF"]
 curve = SubResource("Curve2D_aws7q")
@@ -243,7 +249,7 @@ curve = SubResource("Curve2D_aws7q")
 [node name="EditorLetterG" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(171, 82)
 letter = "g"
-size = 70.0
+size = 60.0
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterG"]
 curve = SubResource("Curve2D_3meo8")
@@ -260,7 +266,7 @@ curve = SubResource("Curve2D_yyul4")
 [node name="EditorLetterI" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(20, 137)
 letter = "i"
-size = 40.0
+size = 60.0
 subdivision = 25
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterI"]
@@ -320,7 +326,7 @@ curve = SubResource("Curve2D_t7axt")
 [node name="EditorLetterP" parent="Letters" instance=ExtResource("2_fjngd")]
 position = Vector2(243, 194)
 letter = "p"
-size = 70.0
+size = 60.0
 subdivision = 40
 
 [node name="Path2D" type="Path2D" parent="Letters/EditorLetterP"]
@@ -430,6 +436,9 @@ size = 60.0
 
 [node name="Path2D" type="Path2D" parent="Specials/EditorLetterSpace"]
 curve = SubResource("Curve2D_ftkm7")
+
+[node name="Path2D2" type="Path2D" parent="Specials/EditorLetterSpace"]
+curve = SubResource("Curve2D_4qqsw")
 
 [node name="Numerics" type="Node2D" parent="."]
 
