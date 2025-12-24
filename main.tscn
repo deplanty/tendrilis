@@ -13,6 +13,6 @@ point_count = 3
 [node name="Tendrilis" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 59)
 curve = SubResource("Curve2D_ig7tw")
-text = "portez ce vieux whisky au juge blond qui fume"
+text = "Le vieux marin bois son whisky"
 thickness = 3.0
 color = Color(0.5256453, 0.94489235, 0.7149741, 1)
