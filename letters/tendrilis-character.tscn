@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3i2pkd8028nv"]
 
-[ext_resource type="Script" uid="uid://bewpwn7xxc20m" path="res://letters/tendrilis-letter.gd" id="1_0qvdt"]
+[ext_resource type="Script" uid="uid://bewpwn7xxc20m" path="res://letters/tendrilis-character.gd" id="1_0qvdt"]
 
 [node name="TendrilisLetter" type="Node2D"]
 scale = Vector2(1.3333334, 1.3333334)

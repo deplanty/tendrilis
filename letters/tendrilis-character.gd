@@ -1,5 +1,5 @@
 @tool
-class_name TendrilisLetter
+class_name TendrilisCharacter
 extends Node2D
 
 
