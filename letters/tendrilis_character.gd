@@ -21,7 +21,12 @@ extends Node2D
 		_update_shapes()
 
 ## The color of the letter.
-@export var color: Color = Color.WHITE
+@export var color: Color = Color.WHITE:
+	set(value):
+		color = value
+		if not is_node_ready():
+			await ready
+		_update_shapes()
 
 ## Show the latin letter below the tendrilis letter.
 @export var show_translation: bool = false:
@@ -31,10 +36,19 @@ extends Node2D
 			await ready
 		$Label.visible = value
 
+## Show a factor of the shape.
+@export_range(0, 1, 0.01) var show_factor: float = 1.0:
+	set(value):
+		_show_factor_previous = show_factor
+		show_factor = value
+		if not is_node_ready():
+			await ready
+		_draw_update_shapes()
 
 @onready var shapes_container: Node2D = %Shapes
 
 
+var _show_factor_previous: float = show_factor
 var _data: TendrilisData.Character
 var _pt_to_px: float = 4.0 / 3
 
@@ -57,11 +71,7 @@ func _draw_shapes() -> void:
 	for shapes in _data.shapes:
 		var curve = Curve2D.new()
 		for point in shapes:
-			curve.add_point(
-				Vector2(point["position"][0], point["position"][1]),
-				Vector2(point["in"][0], point["in"][1]),
-				Vector2(point["out"][0], point["out"][1]),
-			)
+			curve.add_point(point["position"], point["in"], point["out"])
 
 		var line: Line2D = Line2D.new()
 		line.width = 2
@@ -87,6 +97,9 @@ func _draw_shapes() -> void:
 		shapes_container.add_child(line)
 	_update_shapes()
 
+
+func _draw_update_shapes() -> void:
+	pass
 
 ## Update the shapes of the character
 func _update_shapes() -> void:

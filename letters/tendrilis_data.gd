@@ -37,7 +37,14 @@ func _character_from_dict(data: Dictionary) -> Character:
 	character.char_name = data["name"]
 	character.base_size = data["base_size"]
 	character.base_subdivision = data["base_subdivision"]
-	character.shapes = data["shapes"]
+	character.shapes = Array()
+	for shape in data["shapes"]:
+		var points = Array()
+		for point in shape:
+			var point_data = Dictionary()
+			for key in point:
+				point_data[key] = Vector2(point[key][0], point[key][1])
+			points.push_back(point_data)
 	return character
 
 #endregion

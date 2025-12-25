@@ -49,13 +49,13 @@ extends Path2D
 		_draw_baseline()
 
 ## The percent of the tendrilis to show.
-@export_range(0, 1, 0.001) var show_factor: float = 1.0:
+@export_range(0, 1, 0.001) var show_factor: float = 0.0:
 	set(value):
 		_show_factor_previous = show_factor
 		show_factor = value
 		if not is_node_ready():
 			await ready
-		_draw_update_baseline()
+		_draw_baseline()
 		_draw_update_text()
 
 ## Show the translation of the tendrilis
@@ -89,11 +89,11 @@ var _baseline_length: float
 #region Magics
 
 func _ready() -> void:
-	_draw_baseline()
-	_draw_text()
-
 	_baseline_length = curve.get_baked_length()
-	_show_factor_previous = show_factor
+	baseline.clear_points()
+	baseline.width = 1
+	baseline.default_color = color
+	baseline.antialiased = true
 
 	curve.changed.connect(_on_curve_changed)
 
@@ -125,27 +125,12 @@ func _on_curve_changed() -> void:
 	_update_text()
 
 
-## Draw the baseline.
-func _draw_baseline() -> void:
-	baseline.clear_points()
-	baseline.width = 1
-	baseline.default_color = color
-	baseline.antialiased = true
-	baseline.add_point(curve.get_point_position(0))
-
-	for index in _baseline_subdivisions * show_factor:
-		baseline.add_point(curve.sample_baked(_baseline_length * (1.0 + index) / _baseline_subdivisions))
-
-
-## Draw the basline but not everything every time.
+## Draw the basline but not everything each time the function is called.
 ## If the baseline grows, only add the needed points.
 ## If the baseline shrinks, only remove the needed points.
-func _draw_update_baseline() -> void:
-	# If all the baseline should be created
-	if is_equal_approx(_show_factor_previous, 0.0) and is_equal_approx(show_factor, 1.0):
-		_draw_baseline()
+func _draw_baseline() -> void:
 	# If only a part of the baseline should be created
-	elif _show_factor_previous < show_factor:
+	if _show_factor_previous < show_factor:
 		# Indices are intergers
 		var start = floor(_baseline_subdivisions * _show_factor_previous)
 		var end = floor(_baseline_subdivisions * show_factor)
@@ -155,9 +140,6 @@ func _draw_update_baseline() -> void:
 		# Add each needed point
 		for index in range(start, end):
 			baseline.add_point(curve.sample_baked(_baseline_length * index / _baseline_subdivisions))
-	# If all the baseline should be cleared
-	elif is_zero_approx(show_factor):
-		baseline.clear_points()
 	# If only a part of the baseline should be cleared
 	elif show_factor < _show_factor_previous:
 		var start = floor(_baseline_subdivisions * show_factor)
@@ -172,6 +154,7 @@ func _update_baseline() -> void:
 	baseline.width = thickness
 
 
+# Draw a character.
 func _draw_character(index: int) -> void:
 	var letter = text[index]
 	var character: TendrilisCharacter = scene_tendrilis_character.instantiate()
@@ -195,20 +178,12 @@ func _draw_text() -> void:
 ## If the text grows, only add the needed characters.
 ## If the text shrinks, only remove the needed characters.
 func _draw_update_text() -> void:
-	# If all the text should be rendered
-	if is_equal_approx(_show_factor_previous, 0.0) and is_equal_approx(show_factor, 1.0):
-		_draw_text()
-	# If only a part of the text should be rendered
-	elif _show_factor_previous < show_factor:
+	if _show_factor_previous < show_factor:
 		var subdivisions = text.length()
 		var start = floor(subdivisions * _show_factor_previous)
 		var end = floor(subdivisions * show_factor)
 		for index in range(start, end):
 			_draw_character(index)
-	# If all the baseline should be cleared
-	elif is_zero_approx(show_factor):
-		for child in chars_container.get_children():
-			child.queue_free()
 	# If only a part of the baseline should be cleared
 	elif show_factor < _show_factor_previous:
 		var subdivisions = text.length()

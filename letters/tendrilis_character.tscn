@@ -1,20 +1,25 @@
 [gd_scene load_steps=3 format=3 uid="uid://b3i2pkd8028nv"]
 
-[ext_resource type="Script" uid="uid://bewpwn7xxc20m" path="res://letters/tendrilis-character.gd" id="1_0qvdt"]
+[ext_resource type="Script" uid="uid://bewpwn7xxc20m" path="res://letters/tendrilis_character.gd" id="1_0qvdt"]
 [ext_resource type="Texture2D" uid="uid://bfsurb0p50vba" path="res://editor/icon-plus.png" id="2_u7l2l"]
 
 [node name="TendrilisLetter" type="Node2D"]
 scale = Vector2(1.3333334, 1.3333334)
 script = ExtResource("1_0qvdt")
+letter = "a"
 
 [node name="Shapes" type="Node2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="Label" type="Label" parent="."]
+visible = false
+offset_top = 32.0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 55.0
+text = "a"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_u7l2l")

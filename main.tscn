@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1qdsgjwbgaf0"]
 
 [ext_resource type="PackedScene" uid="uid://dujnautdls7wa" path="res://tendrilis.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://b3i2pkd8028nv" path="res://letters/tendrilis-character.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://b3i2pkd8028nv" path="res://letters/tendrilis_character.tscn" id="2_0xm2m"]
 
 [sub_resource type="Curve2D" id="Curve2D_ig7tw"]
 _data = {
@@ -14,7 +14,6 @@ point_count = 3
 [node name="Tendrilis" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 59)
 curve = SubResource("Curve2D_ig7tw")
-text = "Le marin boit son café"
 fontsize = 20
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
 scene_tendrilis_character = ExtResource("2_0xm2m")
