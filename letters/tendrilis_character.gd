@@ -37,18 +37,17 @@ extends Node2D
 		$Label.visible = value
 
 ## Show a factor of the shape.
-@export_range(0, 1, 0.01) var show_factor: float = 1.0:
+@export_range(0, 1, 0.001) var show_factor: float = 1.0:
 	set(value):
-		_show_factor_previous = show_factor
 		show_factor = value
 		if not is_node_ready():
 			await ready
-		_draw_update_shapes()
+		for line in shapes_container.get_children():
+			line.show_factor = show_factor
 
 @onready var shapes_container: Node2D = %Shapes
 
 
-var _show_factor_previous: float = show_factor
 var _data: TendrilisData.Character
 var _pt_to_px: float = 4.0 / 3
 
@@ -61,45 +60,32 @@ func _ready() -> void:
 #region Private methods
 
 func _draw_shapes() -> void:
+	# Remove all the children before drawing the character
+	for child in shapes_container.get_children():
+		child.queue_free()
+
+	# Do nothing if the character is empty
 	if letter == "":
 		return
 
+	# Get the character data to draw it
 	_data = TendrilisData.get_character(letter)
 
-	var subdivision = _data.base_subdivision
-	# Create all the lines of the letter
-	for shapes in _data.shapes:
+	# Create all the lines of the character
+	for shape in _data.shapes:
 		var curve = Curve2D.new()
-		for point in shapes:
+		for point in shape:
 			curve.add_point(point["position"], point["in"], point["out"])
 
-		var line: Line2D = Line2D.new()
+		var line: GrowingLine2D = GrowingLine2D.new()
 		line.width = 2
 		line.default_color = color
 		line.antialiased = true
 		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
 		line.end_cap_mode = Line2D.LINE_CAP_ROUND
-		var curve_len = curve.get_baked_length()
-		for index in subdivision:
-			line.add_point(
-				curve.sample_baked(curve_len * index / subdivision)
-			)
-		# If the curve loops (starting point == ending point)
-		# Then the line should be closed
-		# Else the line continues to the ending point
-		var last = curve.point_count - 1
-		if curve.get_point_position(0).is_equal_approx(curve.get_point_position(last)):
-			line.closed = true
-		else:
-			line.add_point(
-				curve.get_point_position(last)
-			)
+		line.cached_points = curve.get_baked_points()
 		shapes_container.add_child(line)
 	_update_shapes()
-
-
-func _draw_update_shapes() -> void:
-	pass
 
 ## Update the shapes of the character
 func _update_shapes() -> void:

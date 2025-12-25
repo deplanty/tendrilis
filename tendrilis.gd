@@ -40,14 +40,6 @@ extends Path2D
 		_update_baseline()
 		_update_text()
 
-## The precision of the drawn baseline = the number of subdivision of the line for 100 pixels.
-@export_range(0.1, 10, 0.01, "or_greater", "suffix:subdiv/100px") var subdivision_precision: float = 10.0:
-	set(value):
-		subdivision_precision = value
-		if not is_node_ready():
-			await ready
-		_draw_baseline()
-
 ## The percent of the tendrilis to show.
 @export_range(0, 1, 0.001) var show_factor: float = 0.0:
 	set(value):
@@ -55,7 +47,7 @@ extends Path2D
 		show_factor = value
 		if not is_node_ready():
 			await ready
-		_draw_baseline()
+		baseline.show_factor = show_factor
 		_draw_update_text()
 
 ## Show the translation of the tendrilis
@@ -65,20 +57,16 @@ extends Path2D
 		_update_text_translation()
 
 @export_group("Scenes", "scene")
-@export var scene_tendrilis_character: PackedScene = load("res://letters/tendrilis-character.tscn")
+@export var scene_tendrilis_character: PackedScene = load("res://letters/tendrilis_character.tscn")
 
 #endregion
 #region Script variables - On ready
 
 @onready var chars_container: Node2D = %Chararacters
-@onready var baseline: Line2D = %Baseline
+@onready var baseline: GrowingLine2D = %Baseline
 
 #endregion
 #region Script variables - Private
-
-var _baseline_subdivisions: int:
-	get():
-		return round(subdivision_precision * _baseline_length / 100)
 
 var _show_factor_previous: float = 0
 
@@ -90,10 +78,12 @@ var _baseline_length: float
 
 func _ready() -> void:
 	_baseline_length = curve.get_baked_length()
-	baseline.clear_points()
+	baseline.cached_points = curve.get_baked_points()
 	baseline.width = 1
 	baseline.default_color = color
 	baseline.antialiased = true
+	baseline.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	baseline.end_cap_mode = Line2D.LINE_CAP_ROUND
 
 	curve.changed.connect(_on_curve_changed)
 
@@ -121,34 +111,11 @@ func _on_tb_shrink_vine_pressed() -> void:
 ## When the shape of the curve is modified, update the baseline and the characters to match the new shape.
 func _on_curve_changed() -> void:
 	_baseline_length = curve.get_baked_length()
-	_draw_baseline()
+	baseline.cached_points = curve.get_baked_points()
 	_update_text()
 
 
-## Draw the basline but not everything each time the function is called.
-## If the baseline grows, only add the needed points.
-## If the baseline shrinks, only remove the needed points.
-func _draw_baseline() -> void:
-	# If only a part of the baseline should be created
-	if _show_factor_previous < show_factor:
-		# Indices are intergers
-		var start = floor(_baseline_subdivisions * _show_factor_previous)
-		var end = floor(_baseline_subdivisions * show_factor)
-		# If the show factor is 100%, then add the last point
-		if is_equal_approx(show_factor, 1.0):
-			end += 1
-		# Add each needed point
-		for index in range(start, end):
-			baseline.add_point(curve.sample_baked(_baseline_length * index / _baseline_subdivisions))
-	# If only a part of the baseline should be cleared
-	elif show_factor < _show_factor_previous:
-		var start = floor(_baseline_subdivisions * show_factor)
-		var end = floor(_baseline_subdivisions * _show_factor_previous)
-		for _ignored in range(start, end):
-			baseline.remove_point(baseline.get_point_count() - 1)
-
-
-## Update the baseline parameters that don't require to redraw it: color and thickness.
+## Update the baseline parameters color and thickness.
 func _update_baseline() -> void:
 	baseline.default_color = color
 	baseline.width = thickness

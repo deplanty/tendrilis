@@ -45,6 +45,7 @@ func _character_from_dict(data: Dictionary) -> Character:
 			for key in point:
 				point_data[key] = Vector2(point[key][0], point[key][1])
 			points.push_back(point_data)
+		character.shapes.push_back(points)
 	return character
 
 #endregion

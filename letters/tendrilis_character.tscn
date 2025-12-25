@@ -4,16 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://bfsurb0p50vba" path="res://editor/icon-plus.png" id="2_u7l2l"]
 
 [node name="TendrilisLetter" type="Node2D"]
-scale = Vector2(1.3333334, 1.3333334)
 script = ExtResource("1_0qvdt")
 letter = "a"
+show_translation = true
 
 [node name="Shapes" type="Node2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="Label" type="Label" parent="."]
-visible = false
 offset_top = 32.0
 offset_right = 40.0
 offset_bottom = 55.0
