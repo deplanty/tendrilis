@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_ig7tw"]
 _data = {
-"points": PackedVector2Array(-287.38486, -172.25673, 287.38486, 172.25673, 3, 0, -161.82518, 1.5767698, 161.82518, -1.5767698, 557, 41, -179.46184, 77.770996, 179.46184, -77.770996, 918, 15)
+"points": PackedVector2Array(-287.38486, -172.25673, 287.38486, 172.25673, 3, 0, -164.30452, -5.861246, 164.30452, 5.861246, 557, 41, -179.46184, 77.770996, 179.46184, -77.770996, 943, 20)
 }
 point_count = 3
 
@@ -14,7 +14,7 @@ point_count = 3
 [node name="Tendrilis" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 59)
 curve = SubResource("Curve2D_ig7tw")
-text = "abcdeabcde"
+text = "Le marin boit son café"
 fontsize = 20
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
 scene_tendrilis_character = ExtResource("2_0xm2m")

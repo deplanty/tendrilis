@@ -4,7 +4,8 @@ extends Path2D
 
 #region Script variables - Export
 
-@export_tool_button("Grow vine", "GuiVisibilityVisible") var tb_grow_vine = _on_tb_grow_vine_pressed
+@export_tool_button("Grow vine", "GuiTreeArrowRight") var tb_grow_vine = _on_tb_grow_vine_pressed
+@export_tool_button("Shrink vine", "GuiTreeArrowLeft") var tb_shrink_vine = _on_tb_shrink_vine_pressed
 
 ## The text to translate to tendrilis.
 @export_multiline var text: String = "":
@@ -30,7 +31,7 @@ extends Path2D
 			await ready
 		_update_baseline()
 
-## The color of the text and of the baseline
+## The color of the text and of the baseline.
 @export var color: Color = Color.WHITE:
 	set(value):
 		color = value
@@ -39,14 +40,21 @@ extends Path2D
 		_update_baseline()
 		_update_text()
 
-## The percent of the tendrilis to show
+## The precision of the drawn baseline = the number of subdivision of the line for 100 pixels.
+@export_range(0.1, 10, 0.01, "or_greater", "suffix:subdiv/100px") var subdivision_precision: float = 10.0:
+	set(value):
+		subdivision_precision = value
+		if not is_node_ready():
+			await ready
+		_draw_baseline()
+
+## The percent of the tendrilis to show.
 @export_range(0, 1, 0.001) var show_factor: float = 1.0:
 	set(value):
 		_show_factor_previous = show_factor
 		show_factor = value
 		if not is_node_ready():
 			await ready
-		#_draw_baseline()
 		_draw_update_baseline()
 		_draw_update_text()
 
@@ -68,6 +76,10 @@ extends Path2D
 #endregion
 #region Script variables - Private
 
+var _baseline_subdivisions: int:
+	get():
+		return round(subdivision_precision * _baseline_length / 100)
+
 var _show_factor_previous: float = 0
 
 ## The length of the baseline calculated by the curve.
@@ -88,13 +100,20 @@ func _ready() -> void:
 #endregion
 #region Events
 
-## Toolbutton method to grow the tendril from start to end.
+## Toolbutton method to grow the tendril from current state to full.
 func _on_tb_grow_vine_pressed() -> void:
-	show_factor = 0
 	var tween = create_tween()\
 		.set_ease(Tween.EASE_OUT)\
 		.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "show_factor", 1.0, 2)
+
+
+## Toolbutton method to shrink the tendril from current state to start.
+func _on_tb_shrink_vine_pressed() -> void:
+	var tween = create_tween()\
+		.set_ease(Tween.EASE_OUT)\
+		.set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "show_factor", 0.0, 2)
 
 #endregion
 #region Private methods
@@ -105,17 +124,18 @@ func _on_curve_changed() -> void:
 	_draw_baseline()
 	_update_text()
 
+
 ## Draw the baseline.
 func _draw_baseline() -> void:
-	var subdivisions = len(text)
 	baseline.clear_points()
 	baseline.width = 1
 	baseline.default_color = color
 	baseline.antialiased = true
 	baseline.add_point(curve.get_point_position(0))
 
-	for index in subdivisions * show_factor:
-		baseline.add_point(curve.sample_baked(_baseline_length * (1.0 + index) / subdivisions))
+	for index in _baseline_subdivisions * show_factor:
+		baseline.add_point(curve.sample_baked(_baseline_length * (1.0 + index) / _baseline_subdivisions))
+
 
 ## Draw the basline but not everything every time.
 ## If the baseline grows, only add the needed points.
@@ -126,19 +146,23 @@ func _draw_update_baseline() -> void:
 		_draw_baseline()
 	# If only a part of the baseline should be created
 	elif _show_factor_previous < show_factor:
-		var subdivisions = text.length()
-		var start = subdivisions * _show_factor_previous
-		var end = subdivisions * show_factor
-		for index in range(start, end + 1):
-			baseline.add_point(curve.sample_baked(_baseline_length * index / subdivisions))
+		# Indices are intergers
+		var start = floor(_baseline_subdivisions * _show_factor_previous)
+		var end = floor(_baseline_subdivisions * show_factor)
+		# If the show factor is 100%, then add the last point
+		if is_equal_approx(show_factor, 1.0):
+			end += 1
+		# Add each needed point
+		for index in range(start, end):
+			baseline.add_point(curve.sample_baked(_baseline_length * index / _baseline_subdivisions))
 	# If all the baseline should be cleared
 	elif is_zero_approx(show_factor):
 		baseline.clear_points()
 	# If only a part of the baseline should be cleared
 	elif show_factor < _show_factor_previous:
-		var subdivisions = text.length()
-		var n = subdivisions * (_show_factor_previous - show_factor)
-		for _ignored in n:
+		var start = floor(_baseline_subdivisions * show_factor)
+		var end = floor(_baseline_subdivisions * _show_factor_previous)
+		for _ignored in range(start, end):
 			baseline.remove_point(baseline.get_point_count() - 1)
 
 
@@ -167,15 +191,18 @@ func _draw_text() -> void:
 		_draw_character(index)
 
 
+## Draw the text but not everything every time.
+## If the text grows, only add the needed characters.
+## If the text shrinks, only remove the needed characters.
 func _draw_update_text() -> void:
-	# If all the baseline should be created
+	# If all the text should be rendered
 	if is_equal_approx(_show_factor_previous, 0.0) and is_equal_approx(show_factor, 1.0):
 		_draw_text()
-	# If only a part of the baseline should be created
+	# If only a part of the text should be rendered
 	elif _show_factor_previous < show_factor:
 		var subdivisions = text.length()
-		var start = subdivisions * _show_factor_previous
-		var end = subdivisions * show_factor
+		var start = floor(subdivisions * _show_factor_previous)
+		var end = floor(subdivisions * show_factor)
 		for index in range(start, end):
 			_draw_character(index)
 	# If all the baseline should be cleared
@@ -185,9 +212,11 @@ func _draw_update_text() -> void:
 	# If only a part of the baseline should be cleared
 	elif show_factor < _show_factor_previous:
 		var subdivisions = text.length()
-		var n = subdivisions * (_show_factor_previous - show_factor)
-		for _ignored in n:
-			chars_container.remove_child(chars_container.get_child(chars_container.get_child_count() - 1))
+		var start = floor(subdivisions * show_factor)
+		var end = floor(subdivisions * _show_factor_previous)
+		for index in range(start, end):
+			chars_container.get_child(index).queue_free()
+
 
 ## Update each character parameters that don't require to redraw the text: fontsize, color, position and rotation.
 func _update_text() -> void:
@@ -197,10 +226,12 @@ func _update_text() -> void:
 		child.color = color
 		_update_text_char_position(child, index)
 
+
 ## Update the translation of the tendrilis below the baseline.
 func _update_text_translation() -> void:
 	for child in chars_container.get_children():
 		child.show_translation = show_translation
+
 
 ## Update the tendrilis character.
 func _update_text_char_position(character: TendrilisCharacter, index: int) -> void:
