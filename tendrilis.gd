@@ -12,7 +12,6 @@ extends Path2D
 		text = value
 		if not is_node_ready():
 			await ready
-		_draw_baseline()
 		_draw_text()
 
 ## The size of the text.
@@ -43,11 +42,13 @@ extends Path2D
 ## The percent of the tendrilis to show
 @export_range(0, 1, 0.001) var show_factor: float = 1.0:
 	set(value):
+		_show_factor_previous = show_factor
 		show_factor = value
 		if not is_node_ready():
 			await ready
-		_draw_baseline()
-		_draw_text()
+		#_draw_baseline()
+		_draw_update_baseline()
+		_draw_update_text()
 
 ## Show the translation of the tendrilis
 @export var show_translation: bool = true:
@@ -59,13 +60,15 @@ extends Path2D
 @export var scene_tendrilis_character: PackedScene = load("res://letters/tendrilis-character.tscn")
 
 #endregion
-#region Script variables
+#region Script variables - On ready
 
 @onready var chars_container: Node2D = %Chararacters
 @onready var baseline: Line2D = %Baseline
 
 #endregion
-#region Private variables
+#region Script variables - Private
+
+var _show_factor_previous: float = 0
 
 ## The length of the baseline calculated by the curve.
 var _baseline_length: float
@@ -74,7 +77,11 @@ var _baseline_length: float
 #region Magics
 
 func _ready() -> void:
+	_draw_baseline()
+	_draw_text()
+
 	_baseline_length = curve.get_baked_length()
+	_show_factor_previous = show_factor
 
 	curve.changed.connect(_on_curve_changed)
 
@@ -110,10 +117,46 @@ func _draw_baseline() -> void:
 	for index in subdivisions * show_factor:
 		baseline.add_point(curve.sample_baked(_baseline_length * (1.0 + index) / subdivisions))
 
+## Draw the basline but not everything every time.
+## If the baseline grows, only add the needed points.
+## If the baseline shrinks, only remove the needed points.
+func _draw_update_baseline() -> void:
+	# If all the baseline should be created
+	if is_equal_approx(_show_factor_previous, 0.0) and is_equal_approx(show_factor, 1.0):
+		_draw_baseline()
+	# If only a part of the baseline should be created
+	elif _show_factor_previous < show_factor:
+		var subdivisions = text.length()
+		var start = subdivisions * _show_factor_previous
+		var end = subdivisions * show_factor
+		for index in range(start, end + 1):
+			baseline.add_point(curve.sample_baked(_baseline_length * index / subdivisions))
+	# If all the baseline should be cleared
+	elif is_zero_approx(show_factor):
+		baseline.clear_points()
+	# If only a part of the baseline should be cleared
+	elif show_factor < _show_factor_previous:
+		var subdivisions = text.length()
+		var n = subdivisions * (_show_factor_previous - show_factor)
+		for _ignored in n:
+			baseline.remove_point(baseline.get_point_count() - 1)
+
+
 ## Update the baseline parameters that don't require to redraw it: color and thickness.
 func _update_baseline() -> void:
 	baseline.default_color = color
 	baseline.width = thickness
+
+
+func _draw_character(index: int) -> void:
+	var letter = text[index]
+	var character: TendrilisCharacter = scene_tendrilis_character.instantiate()
+	character.letter = letter
+	character.fontsize = fontsize
+	character.color = color
+	_update_text_char_position(character, index)
+	chars_container.add_child(character)
+
 
 ## Create and draw each character of the text.
 func _draw_text() -> void:
@@ -121,13 +164,30 @@ func _draw_text() -> void:
 		child.queue_free()
 
 	for index in floor(text.length() * show_factor):
-		var letter = text[index].to_lower()
-		var character: TendrilisCharacter = scene_tendrilis_character.instantiate()
-		character.letter = letter
-		character.fontsize = fontsize
-		character.color = color
-		_update_text_char_position(character, index)
-		chars_container.add_child(character)
+		_draw_character(index)
+
+
+func _draw_update_text() -> void:
+	# If all the baseline should be created
+	if is_equal_approx(_show_factor_previous, 0.0) and is_equal_approx(show_factor, 1.0):
+		_draw_text()
+	# If only a part of the baseline should be created
+	elif _show_factor_previous < show_factor:
+		var subdivisions = text.length()
+		var start = subdivisions * _show_factor_previous
+		var end = subdivisions * show_factor
+		for index in range(start, end):
+			_draw_character(index)
+	# If all the baseline should be cleared
+	elif is_zero_approx(show_factor):
+		for child in chars_container.get_children():
+			child.queue_free()
+	# If only a part of the baseline should be cleared
+	elif show_factor < _show_factor_previous:
+		var subdivisions = text.length()
+		var n = subdivisions * (_show_factor_previous - show_factor)
+		for _ignored in n:
+			chars_container.remove_child(chars_container.get_child(chars_container.get_child_count() - 1))
 
 ## Update each character parameters that don't require to redraw the text: fontsize, color, position and rotation.
 func _update_text() -> void:
