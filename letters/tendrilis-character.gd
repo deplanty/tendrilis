@@ -102,7 +102,6 @@ func _update_shapes() -> void:
 		line.scale.x = line_scale
 		line.scale.y = line_scale
 
-	$Label.position.x = _data.base_size / 2
 	$Label.position.y = fontsize
 
 #endregion
