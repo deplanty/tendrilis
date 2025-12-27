@@ -1,9 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1qdsgjwbgaf0"]
+[gd_scene load_steps=8 format=3 uid="uid://c1qdsgjwbgaf0"]
 
 [ext_resource type="Script" uid="uid://d20hcgvpn4p44" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dujnautdls7wa" path="res://tendrilis.tscn" id="1_ig7tw"]
 
-[sub_resource type="Curve2D" id="Curve2D_ig7tw"]
+[sub_resource type="Curve2D" id="Curve2D_0xm2m"]
 resource_local_to_scene = true
 bake_interval = 10.0
 _data = {
@@ -11,33 +11,72 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+resource_local_to_scene = true
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(-148.23486, -21.006721, 148.23486, 21.006721, 11, 126, -134.93494, 22.142302, 134.93494, -22.142302, 414, 70, -179.46184, 77.770996, 179.46184, -77.770996, 778, 31)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_1bvp3"]
+resource_local_to_scene = true
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(-148.23486, -21.006721, 148.23486, 21.006721, 11, 126, -134.93494, 22.142302, 134.93494, -22.142302, 414, 70, -179.46184, 77.770996, 179.46184, -77.770996, 778, 31)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_lquwl"]
+resource_local_to_scene = true
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(-148.23486, -21.006721, 148.23486, 21.006721, 11, 126, -134.93494, 22.142302, 134.93494, -22.142302, 414, 70, -179.46184, 77.770996, 179.46184, -77.770996, 778, 31)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_7mycd"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(-38.350792, 3.8082352, 38.350792, -3.8082352, 0, 0, -69, 6, 69, -6, 230, 50, -87, 15, 87, -15, 565, -44, -70, 84, 70, -84, 1026, -120)
+}
+point_count = 4
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
 
 [node name="Tendrilis" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 59)
-curve = SubResource("Curve2D_ig7tw")
+curve = SubResource("Curve2D_0xm2m")
 text = "Un immense brin d'herbe"
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
 show_translation = false
 
 [node name="Tendrilis2" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 133)
-curve = SubResource("Curve2D_ig7tw")
-text = "Un immense brin d'herbe"
+curve = SubResource("Curve2D_h2yge")
+text = "Une toute petite fôret"
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
 show_translation = false
 
 [node name="Tendrilis3" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 210)
-curve = SubResource("Curve2D_ig7tw")
-text = "Un immense brin d'herbe"
+curve = SubResource("Curve2D_1bvp3")
+text = "Un ciel tout à fait vert"
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
 show_translation = false
 
 [node name="Tendrilis4" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 282)
-curve = SubResource("Curve2D_ig7tw")
-text = "Un immense brin d'herbe"
+curve = SubResource("Curve2D_lquwl")
+text = "Et des nuages en osier"
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
 show_translation = false
+
+[node name="Tendrilis5" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(82, 478)
+curve = SubResource("Curve2D_7mycd")
+text = "Portez ce vieux whisky au juge blond qui fume"
+fontsize = 24
+color = Color(0.3764706, 0.8352941, 0.28627452, 1)
+show_factor = 1.0

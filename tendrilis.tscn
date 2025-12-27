@@ -6,6 +6,11 @@
 [ext_resource type="Shader" uid="uid://gnvc5ox01f30" path="res://tendrilis_baseline.gdshader" id="3_phmju"]
 
 [sub_resource type="Curve2D" id="Curve2D_r71o2"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 50)
+}
+point_count = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hm50b"]
 shader = ExtResource("3_phmju")
@@ -27,8 +32,9 @@ width_curve = SubResource("Curve_hypch")
 texture_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
+antialiased = true
 script = ExtResource("3_hm50b")
-show_factor = 1.0
+cached_points = PackedVector2Array(0, 0, 4.296875, 2.1484375, 6.5612793, 3.2806396, 9.228516, 4.614258, 12.261963, 6.1309814, 15.625, 7.8125, 19.281006, 9.640503, 23.19336, 11.59668, 27.32544, 13.66272, 31.640625, 15.8203125, 36.102295, 18.051147, 38.376617, 19.188309, 40.67383, 20.336914, 42.98935, 21.494675, 45.318604, 22.659302, 47.657013, 23.828506, 50, 25, 52.342987, 26.171494, 54.681396, 27.340698, 57.01065, 28.505325, 59.32617, 29.663086, 61.623383, 30.811691, 63.897705, 31.948853, 68.359375, 34.179688, 72.67456, 36.33728, 76.80664, 38.40332, 80.718994, 40.359497, 84.375, 42.1875, 87.73804, 43.86902, 90.771484, 45.385742, 93.43872, 46.71936, 95.703125, 47.851563, 100, 50)
 metadata/_custom_type_script = "uid://doovfrar60kkd"
 
 [node name="Chararacters" type="Node2D" parent="."]

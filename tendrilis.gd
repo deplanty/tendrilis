@@ -179,7 +179,7 @@ func _draw_text() -> void:
 
 ## Update each character parameters that don't require to redraw the text: fontsize, color, position and rotation.
 func _update_text() -> void:
-	for index in floor(text.length() * show_factor):
+	for index in text.length():
 		var child = chars_container.get_child(index)
 		child.fontsize = fontsize
 		child.color = color
