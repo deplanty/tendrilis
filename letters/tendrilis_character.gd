@@ -44,7 +44,7 @@ extends Node2D
 			await ready
 		for line in shapes_container.get_children():
 			line.show_factor = show_factor
-		#$Label.scale = Vector2(show_factor, show_factor)
+		$Label.scale = Vector2(show_factor, show_factor)
 
 @onready var shapes_container: Node2D = %Shapes
 

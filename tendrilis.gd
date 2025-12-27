@@ -18,53 +18,47 @@ signal shrink_finished
 @export_multiline var text: String = "":
 	set(value):
 		text = value
-		if not is_node_ready():
-			await ready
-		_init_text()
-		_draw_text()
+		if is_node_ready():
+			_init_text()
+			_draw_text()
 
 ## The size of the text.
 @export_range(1, 100, 1, "or_greater", "suffix:pt") var fontsize: int = 32:
 	set(value):
 		fontsize = value
-		if not is_node_ready():
-			await ready
-		_update_text()
+		if is_node_ready():
+			_update_text()
 
 ## The thickness of the baseline.
 @export_range(1, 20, 0.1, "or_greater", "suffix:pt") var thickness: float = 4:
 	set(value):
 		thickness = value
-		if not is_node_ready():
-			await ready
-		_update_baseline()
+		if is_node_ready():
+			_update_baseline()
 
 ## The color of the text and of the baseline.
 @export var color: Color = Color.WHITE:
 	set(value):
 		color = value
-		if not is_node_ready():
-			await ready
-		_update_baseline()
-		_update_text()
+		if is_node_ready():
+			_update_baseline()
+			_update_text()
 
 ## The percent of the tendrilis to show.
 @export_range(0, 1, 0.001) var show_factor: float = 0.:
 	set(value):
 		_show_factor_previous = show_factor
 		show_factor = value
-		if not is_node_ready():
-			await ready
-		baseline.show_factor = show_factor
-		_draw_text()
+		if is_node_ready():
+			baseline.show_factor = show_factor
+			_draw_text()
 
 ## Show the translation of the tendrilis
 @export var show_translation: bool = true:
 	set(value):
 		show_translation = value
-		if not is_node_ready():
-			await ready
-		_update_text_translation()
+		if is_node_ready():
+			_update_text_translation()
 
 @export_group("Scenes", "scene")
 @export var scene_tendrilis_character: PackedScene = load("res://letters/tendrilis_character.tscn")
@@ -87,16 +81,16 @@ var _baseline_length: float
 func _ready() -> void:
 	_baseline_length = curve.get_baked_length()
 	baseline.cached_points = curve.get_baked_points()
-	baseline.width = 1
-	baseline.default_color = color
 	baseline.antialiased = true
 	baseline.begin_cap_mode = Line2D.LINE_CAP_ROUND
 	baseline.end_cap_mode = Line2D.LINE_CAP_ROUND
+	_update_baseline()
+
+	curve.changed.connect(_on_curve_changed)
 
 	_init_text()
 	_draw_text()
-
-	curve.changed.connect(_on_curve_changed)
+	_update_text_translation()
 
 #endregion
 #region Events
@@ -122,6 +116,7 @@ func _on_curve_changed() -> void:
 
 ## Update the baseline parameters color and thickness.
 func _update_baseline() -> void:
+	baseline.show_factor = show_factor
 	baseline.default_color = color
 	baseline.width = thickness
 
@@ -138,7 +133,7 @@ func _init_text() -> void:
 		character.letter = chr
 		character.fontsize = fontsize
 		character.color = color
-		character.show_factor = 1.
+		character.show_factor = 0.
 		_update_text_char_position(character, index)
 		chars_container.add_child(character)
 
@@ -212,7 +207,7 @@ func grow(duration: float, from_zero: bool = false) -> void:
 
 	var tween = create_tween()\
 		.set_ease(Tween.EASE_OUT)\
-		.set_trans(Tween.TRANS_QUAD)
+		.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "show_factor", 1.0, duration)
 	await tween.finished
 	grow_finished.emit()
@@ -224,9 +219,14 @@ func shrink(duration: float, from_zero: bool = false) -> void:
 
 	var tween = create_tween()\
 		.set_ease(Tween.EASE_OUT)\
-		.set_trans(Tween.TRANS_QUAD)
+		.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "show_factor", 0.0, duration)
 	await tween.finished
 	shrink_finished.emit()
+
+
+func grow_after(tendrilis: Tendrilis, duration: float) -> void:
+	await tendrilis.grow_finished
+	grow(duration)
 
 #endregion
