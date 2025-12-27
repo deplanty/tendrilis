@@ -186,8 +186,10 @@ point_count = 2
 
 [node name="Editor" type="Node2D"]
 script = ExtResource("1_vjobr")
+grid_size = 60.0
 
 [node name="Tendrilis" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(311, 192)
 texture = ExtResource("2_wrb8p")
 
