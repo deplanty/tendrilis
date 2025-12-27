@@ -13,12 +13,16 @@ extends Line2D
 		_update_line()
 
 ## The percent of the line that is shown.
-@export_range(0.0, 1.0, 0.01) var show_factor: float = 1.0:
+@export_range(0.0, 1.0, 0.01) var show_factor: float = 0:
 	set(value):
 		show_factor = value
 		if not is_node_ready():
 			await ready
 		_update_line()
+
+
+func _ready() -> void:
+	_update_line()
 
 
 ## Update what part of the line is shown.

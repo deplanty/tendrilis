@@ -1,10 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://dujnautdls7wa"]
+[gd_scene load_steps=8 format=3 uid="uid://dujnautdls7wa"]
 
 [ext_resource type="Script" uid="uid://bh08eqnvlt1bs" path="res://tendrilis.gd" id="1_r71o2"]
 [ext_resource type="PackedScene" uid="uid://b3i2pkd8028nv" path="res://letters/tendrilis_character.tscn" id="2_hypch"]
 [ext_resource type="Script" uid="uid://doovfrar60kkd" path="res://letters/growing_line_2d.gd" id="3_hm50b"]
+[ext_resource type="Shader" uid="uid://gnvc5ox01f30" path="res://tendrilis_baseline.gdshader" id="3_phmju"]
 
 [sub_resource type="Curve2D" id="Curve2D_r71o2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hm50b"]
+shader = ExtResource("3_phmju")
+
+[sub_resource type="Curve" id="Curve_hypch"]
+_data = [Vector2(0, 0.52808994), 0.0, 1.8474777, 0, 1, Vector2(0.25543478, 1), 0.0, 0.0, 0, 0, Vector2(0.6467391, 1), 0.0, 0.0, 0, 0, Vector2(0.99456525, 0.5842697), -0.24612084, 0.0, 0, 0]
+point_count = 4
 
 [node name="Tendrilis" type="Path2D"]
 curve = SubResource("Curve2D_r71o2")
@@ -13,9 +21,14 @@ scene_tendrilis_character = ExtResource("2_hypch")
 
 [node name="Baseline" type="Line2D" parent="."]
 unique_name_in_owner = true
-width = 1.0
-antialiased = true
+material = SubResource("ShaderMaterial_hm50b")
+width = 4.0
+width_curve = SubResource("Curve_hypch")
+texture_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 script = ExtResource("3_hm50b")
+show_factor = 1.0
 metadata/_custom_type_script = "uid://doovfrar60kkd"
 
 [node name="Chararacters" type="Node2D" parent="."]

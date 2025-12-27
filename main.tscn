@@ -1,18 +1,63 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1qdsgjwbgaf0"]
+[gd_scene load_steps=7 format=3 uid="uid://c1qdsgjwbgaf0"]
 
+[ext_resource type="Script" uid="uid://d20hcgvpn4p44" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dujnautdls7wa" path="res://tendrilis.tscn" id="1_ig7tw"]
 
 [sub_resource type="Curve2D" id="Curve2D_ig7tw"]
 bake_interval = 10.0
 _data = {
-"points": PackedVector2Array(-287.38486, -172.25673, 287.38486, 172.25673, 3, 0, -164.30452, -5.861246, 164.30452, 5.861246, 557, 41, -179.46184, 77.770996, 179.46184, -77.770996, 915, 128)
+"points": PackedVector2Array(-148.23486, -21.006721, 148.23486, 21.006721, 11, 126, -164.30452, -5.861246, 164.30452, 5.861246, 414, 70, -179.46184, 77.770996, 179.46184, -77.770996, 778, 31)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_0xm2m"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(-138.55484, -54.886734, 138.55484, 54.886734, 9, 52, -164.30452, -5.861246, 164.30452, 5.861246, 414, 69, -198.82184, 51.150993, 198.82184, -51.150993, 882, 79)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(-120.40485, -50.046722, 120.40485, 50.046722, 6, -36, -125.58452, -22.801247, 125.58452, 22.801247, 331, 78, -143.16183, -60.169006, 143.16183, 60.169006, 784, 60)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_1bvp3"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(-87.734856, -94.81673, 87.734856, 94.81673, 0, -123, -144.94452, -5.861246, 144.94452, 5.861246, 351, 16, -179.46184, 77.770996, 179.46184, -77.770996, 845, 77)
 }
 point_count = 3
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_0xm2m")
 
 [node name="Tendrilis" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(70, 59)
 curve = SubResource("Curve2D_ig7tw")
-text = "Le vieux marin boit du whisky"
+text = "Un immense brin d'herbe"
 color = Color(0.5254902, 0.94509804, 0.7137255, 1)
+show_translation = false
+
+[node name="Tendrilis2" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(70, 171)
+curve = SubResource("Curve2D_0xm2m")
+text = "Une toute petite forêt"
+color = Color(0.5254902, 0.94509804, 0.7137255, 1)
+show_translation = false
+
+[node name="Tendrilis3" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(70, 297)
+curve = SubResource("Curve2D_h2yge")
+text = "Un ciel tout à fait vert"
+color = Color(0.5254902, 0.94509804, 0.7137255, 1)
+show_translation = false
+
+[node name="Tendrilis4" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(72, 426)
+curve = SubResource("Curve2D_1bvp3")
+text = "Et des nuages en osier"
+color = Color(0.5254902, 0.94509804, 0.7137255, 1)
+show_translation = false

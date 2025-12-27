@@ -37,13 +37,14 @@ extends Node2D
 		$Label.visible = value
 
 ## Show a factor of the shape.
-@export_range(0, 1, 0.001) var show_factor: float = 1.0:
+@export_range(0, 1, 0.001) var show_factor: float = 0:
 	set(value):
 		show_factor = value
 		if not is_node_ready():
 			await ready
 		for line in shapes_container.get_children():
 			line.show_factor = show_factor
+		#$Label.scale = Vector2(show_factor, show_factor)
 
 @onready var shapes_container: Node2D = %Shapes
 

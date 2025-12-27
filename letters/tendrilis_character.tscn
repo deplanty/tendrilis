@@ -7,6 +7,7 @@
 script = ExtResource("1_0qvdt")
 letter = "a"
 show_translation = true
+show_factor = 1.0
 
 [node name="Shapes" type="Node2D" parent="."]
 unique_name_in_owner = true
